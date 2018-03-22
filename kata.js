@@ -123,7 +123,7 @@ function evaluateExpressions(expString, objPairs) {
    let expressions = expString.split(' ');
    let total = 0;
 
-   for (item in expressions) {
+   for (let item in expressions) {
       let expItem = expressions[item];
 
       if (['+', '-'].includes(expItem)) {
@@ -131,18 +131,11 @@ function evaluateExpressions(expString, objPairs) {
       } else {
          let numToEval = Number(objPairs[expItem]);
          let actToDo = expressions[item-1];
+         let signMultiplier = +1;
 
-         switch (actToDo) {
-            case undefined:
-               total += numToEval;
-               break;
-            case '+':
-               total += numToEval;
-               break;
-            case '-':
-               total -= numToEval;
-               break;
-         }
+         if (actToDo === '-') signMultiplier = -1;
+
+         total = total + numToEval * signMultiplier;
       }
    }
    return total;
